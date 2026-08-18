@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5" />
+  <title>Андрей · Бэкэнд-разработчик</title>
+  <!-- Font Awesome 6 (бесплатная иконка) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #f4f7fb;
+      font-family: 'Segoe UI', Roboto, system-ui, -apple-system, sans-serif;
+      color: #1e293b;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* карточка профиля */
+    .card {
+      background: #ffffff;
+      border-radius: 2rem;
+      padding: 2rem 1.8rem;
+      box-shadow: 0 20px 35px -8px rgba(0, 0, 0, 0.08);
+      transition: 0.2s;
+      margin-bottom: 2rem;
+    }
+
+    .profile {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.8rem;
+    }
+
+    .avatar {
+      background: linear-gradient(145deg, #2563eb, #7c3aed);
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      font-weight: 500;
+      color: white;
+      box-shadow: 0 8px 18px rgba(37, 99, 235, 0.25);
+      flex-shrink: 0;
+    }
+
+    .profile-info h1 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem 1rem;
+    }
+
+    .profile-info .badge-role {
+      background: #e2e8f0;
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .profile-info .location {
+      color: #475569;
+      margin-top: 0.3rem;
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .profile-info .location i {
+      color: #2563eb;
+    }
+
+    .social-link {
+      margin-top: 0.8rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: #f1f5f9;
+      padding: 0.5rem 1.4rem 0.5rem 1.2rem;
+      border-radius: 60px;
+      color: #1e293b;
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .social-link i {
+      font-size: 1.5rem;
+      color: #e1306c;
+    }
+
+    .social-link:hover {
+      background: #ffffff;
+      border-color: #e1306c;
+      box-shadow: 0 4px 12px rgba(225, 48, 108, 0.15);
+    }
+
+    /* секции */
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 1.2rem;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-title i {
+      color: #2563eb;
+      font-size: 1.6rem;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem;
+      margin-bottom: 1rem;
+    }
+
+    .project-item {
+      background: #f8fafc;
+      padding: 1.5rem 1.2rem;
+      border-radius: 1.5rem;
+      border-left: 5px solid #2563eb;
+      transition: 0.15s;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+    }
+
+    .project-item h3 {
+      font-weight: 600;
+      font-size: 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .project-item h3 i {
+      color: #2563eb;
+      font-size: 1.1rem;
+    }
+
+    .project-item p {
+      color: #334155;
+      margin-top: 0.3rem;
+      font-size: 0.98rem;
+    }
+
+    .project-item .project-link {
+      display: inline-block;
+      margin-top: 0.8rem;
+      color: #2563eb;
+      font-weight: 500;
+      text-decoration: none;
+      word-break: break-all;
+    }
+
+    .project-item .project-link i {
+      font-size: 0.9rem;
+      margin-right: 0.3rem;
+    }
+
+    /* баджики + скиллы */
+    .badge-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem 1.2rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .badge {
+      background: #eef2ff;
+      padding: 0.3rem 1.2rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: #1e293b;
+      border: 1px solid #c7d2fe;
+    }
+
+    .badge i {
+      color: #2563eb;
+      font-size: 0.9rem;
+    }
+
+    .badge.highlight {
+      background: #2563eb;
+      color: white;
+      border-color: #2563eb;
+    }
+    .badge.highlight i {
+      color: white;
+    }
+
+    /* карточки скиллов (раскрытие) */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.2rem;
+    }
+
+    .skill-card {
+      background: white;
+      border-radius: 1.5rem;
+      padding: 1.2rem 1rem 0.8rem;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.02);
+      border: 1px solid #e9edf2;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .skill-card:hover {
+      border-color: #b9c8e0;
+      box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+    }
+
+    .skill-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .skill-header i {
+      color: #2563eb;
+      font-size: 1.2rem;
+      transition: 0.25s;
+    }
+
+    .skill-description {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.2s ease;
+      color: #475569;
+      font-size: 0.95rem;
+      padding-top: 0;
+    }
+
+    .skill-card.open .skill-description {
+      max-height: 200px; /* достаточно для описания */
+      padding-top: 0.8rem;
+    }
+
+    .skill-card.open .skill-header i {
+      transform: rotate(180deg);
+    }
+
+    .footer-note {
+      margin-top: 3rem;
+      text-align: center;
+      color: #64748b;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 2rem;
+      font-size: 0.95rem;
+    }
+
+    /* адаптив */
+    @media (max-width: 600px) {
+      .profile {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .profile-info h1 {
+        font-size: 1.8rem;
+      }
+      .card {
+        padding: 1.5rem 1rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+      .badge-container {
+        gap: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <!-- визитка -->
+  <div class="card">
+    <div class="profile">
+      <div class="avatar">А</div>
+      <div class="profile-info">
+        <h1>
+          Андрей
+          <span class="badge-role"><i class="fas fa-code" style="margin-right: 6px;"></i>бэкэнд</span>
+        </h1>
+        <div class="location">
+          <i class="fas fa-map-pin"></i> Могилев, Беларусь
+        </div>
+        <a href="https://www.instagram.com/nazarets.andrey/" target="_blank" class="social-link">
+          <i class="fab fa-instagram"></i> @nazarets.andrey
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Достижения / баджики (что умею) - REST API и Docker убраны -->
+  <div class="card">
+    <div class="section-title">
+      <i class="fas fa-award"></i> Достижения &amp; стек
+    </div>
+    <div class="badge-container">
+      <span class="badge"><i class="fab fa-python"></i> Python</span>
+      <span class="badge"><i class="fab fa-django"></i> Django</span>
+      <span class="badge"><i class="fas fa-database"></i> PostgreSQL</span>
+      <span class="badge highlight"><i class="fas fa-graduation-cap"></i> Наставник ITMOUSE</span>
+      <span class="badge"><i class="fas fa-music"></i> Трек «Стук-стук-стук»</span>
+      <span class="badge"><i class="fas fa-store"></i> Интернет-магазин</span>
+      <span class="badge"><i class="fas fa-code-branch"></i> Git</span>
+      <!-- убраны REST API и Docker -->
+    </div>
+  </div>
+
+  <!-- Мои проекты -->
+  <div class="card">
+    <div class="section-title">
+      <i class="fas fa-folder-open"></i> Проекты
+    </div>
+    <div class="projects-grid">
+      <div class="project-item">
+        <h3><i class="fas fa-chalkboard-teacher"></i> ITMOUSE</h3>
+        <p>Преподаватель в школе программирования для детей. Веду курсы по Python и основам алгоритмов.</p>
+      </div>
+      <div class="project-item">
+        <h3><i class="fas fa-headphones"></i> Трек «Стук-стук-стук»</h3>
+        <p>Экспериментальный музыкальный проект. Создан с помощью AI-инструментов.</p>
+        <a href="https://suno.com/song/4d8d411c-c5e1-49f9-9b14-8114ff437c16" target="_blank" class="project-link">
+          <i class="fas fa-play-circle"></i> Послушать на Suno
+        </a>
+      </div>
+      <div class="project-item">
+        <h3><i class="fas fa-cart-shopping"></i> Интернет-магазин</h3>
+        <p>Полноценный e-commerce на <strong>Python + Django</strong>. Корзина, заказы, админ-панель.</p>
+        <span style="display: inline-block; margin-top: 0.8rem; background: #dbeafe; padding: 0.1rem 1rem; border-radius: 40px; font-size: 0.8rem; font-weight: 500;">в разработке</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Скиллы с раскрытием (JS) -->
+  <div class="card">
+    <div class="section-title">
+      <i class="fas fa-cogs"></i> Мои скиллы <span style="font-size: 0.9rem; font-weight: 400; color: #475569; margin-left: 0.5rem;">(нажми на карточку)</span>
+    </div>
+    <div class="skills-grid" id="skillsGrid">
+      <!-- карточка 1 -->
+      <div class="skill-card" data-skill="python">
+        <div class="skill-header">
+          <span><i class="fab fa-python" style="margin-right: 6px;"></i> Python</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="skill-description">Опыт 4+ года. Создание бэкенда, API, обработка данных, асинхронные задачи.</div>
+      </div>
+      <!-- карточка 2 -->
+      <div class="skill-card" data-skill="django">
+        <div class="skill-header">
+          <span><i class="fab fa-django" style="margin-right: 6px;"></i> Django</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="skill-description">Разработка магазинов, блогов, систем аутентификации. ORM, админка, CBV.</div>
+      </div>
+      <!-- карточка 3 -->
+      <div class="skill-card" data-skill="sql">
+        <div class="skill-header">
+          <span><i class="fas fa-database"></i> SQL</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="skill-description">PostgreSQL, сложные запросы, индексы, транзакции, миграции.</div>
+      </div>
+      <!-- карточка 4 -->
+      <div class="skill-card" data-skill="git">
+        <div class="skill-header">
+          <span><i class="fab fa-git-alt"></i> Git</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="skill-description">Уверенное владение: ветки, merge, rebase, CI/CD (GitHub Actions).</div>
+      </div>
+      <!-- карточка 5 -->
+      <div class="skill-card" data-skill="rest">
+        <div class="skill-header">
+          <span><i class="fas fa-code-branch"></i> REST API</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="skill-description">Проектирование эндпоинтов, JWT, документация (Swagger/DRF).</div>
+      </div>
+      <!-- карточка 6: Docker убран из скиллов, но оставим что-то полезное -->
+      <div class="skill-card" data-skill="linux">
+        <div class="skill-header">
+          <span><i class="fab fa-linux"></i> Linux</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="skill-description">Администрирование серверов, bash-скрипты, настройка окружения для Django.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">
+    <i class="fas fa-code"></i> Андрей · 35 лет · Могилев · 2026
+  </div>
+</div>
+ 
+<script>
+  (function() {
+    const skillCards = document.querySelectorAll('.skill-card');
+
+    function toggleCard(card) {
+      // если карточка уже открыта – закрываем
+      if (card.classList.contains('open')) {
+        card.classList.remove('open');
+        return;
+      }
+
+      // закрываем все остальные (аккордеон)
+      skillCards.forEach(c => c.classList.remove('open'));
+      // открываем текущую
+      card.classList.add('open');
+    }
+
+    skillCards.forEach(card => {
+      card.addEventListener('click', function(e) {
+        // игнорируем клик по ссылкам внутри (если появятся)
+        if (e.target.closest('a')) return;
+        toggleCard(this);
+      });
+
+      // доступность: при клике на иконку или текст тоже срабатывает
+      card.style.cursor = 'pointer';
+    });
+
+    // дополнительно: если нажать на иконку chevron – тоже сработает
+    // но она внутри .skill-header, которая часть карточки, поэтому всё ок.
+  })();
+</script>
+
+<!-- небольшой фикс для Safari/старых браузеров -->
+<style>
+  .skill-description {
+    will-change: max-height;
+  }
+</style>
+</body>
+</html>
